@@ -1,51 +1,114 @@
 ---
 
+# RESOURCES ------------------------------ #
 resources:
-- name: source-code
-  type: git
-  source:
-    uri: https://github.com/dgrebb/Snippets
-    branch: master
-# - name: bluegreen
-#   type: keyval
+  - name: source-code
+    type: git
+    source:
+      uri: https://github.com/dgrebb/Snippets
+      branch: master
+  - name: bluegreen
+    type: keyval
 
+# RESOURCE TYPES ------------------------- #
 resource_types:
-- name: keyval
-  type: keyval
+  - name: keyval
+    type: docker-image
+    source:
+      repository: swce/keyval-resource
 
+# JOBS ----------------------------------- #
 jobs:
-- name: echo file 
-  plan:
-  - get: source-code
-  - task: eco
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: busybox
-      inputs:
-      - name: source-code
-      outputs:
-      - name: resources
-      run:
-        path: sh
-        args:
-        - -exec
-        - |
-          echo "blue" > ./resources/bluegreen
-  - task: readfile
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source:
-          repository: busybox
-      inputs:
-      - name: resources
-      run:
-        path: sh
-        args:
-        - -exec
-        - |
-          cat resources/bluegreen
+  - name: make bluegreen
+    plan:
+    - task: make bluegreen
+      file: ./tasks/bluegreen.yml
+    - put: bluegreen
+      params:
+        file: .resources/bluegreen.properties
+
+  - name: read bluegreen
+    plan:
+    - in_parallel:
+      - get: bluegreen
+        passed:
+        - make bluegreen
+      - task: print bluegreen vals
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: busybox
+          inputs:
+          - name: bluegreen
+          outputs:
+          - name: bluegreen
+          run:
+            path: sh
+            args:
+            - -exec
+            - |
+              ls
+              cat ./resources/bluegreen.properties
+
+  # - name: echo file 
+  #   plan:
+  #   - get: source-code
+  #   - task: eco
+  #     config:
+  #       platform: linux
+  #       image_resource:
+  #         type: docker-image
+  #         source:
+  #           repository: busybox
+  #       inputs:
+  #       - name: source-code
+  #       outputs:
+  #       - name: resources
+  #       run:
+  #         path: sh
+  #         args:
+  #         - -exec
+  #         - |
+  #           echo "blue" > ./resources/bluegreen
+  #   - task: readfile
+  #     config:
+  #       platform: linux
+  #       image_resource:
+  #         type: docker-image
+  #         source:
+  #           repository: busybox
+  #       inputs:
+  #       - name: resources
+  #       run:
+  #         path: sh
+  #         args:
+  #         - -exec
+  #         - |
+  #           cat resources/bluegreen
+            
+  # - name: Read Persistent Resource
+  #   plan:
+  #   - get: source-code
+  #     passed:
+  #     - echo file
+  #     trigger: true
+  #   - task: print persistent bluegreen resource
+  #     config:
+  #       platform: linux
+  #       image_resource:
+  #         type: docker-image
+  #         source:
+  #           repository: busybox
+  #       inputs:
+  #       - name: source-code
+  #       outputs:
+  #       - name: bluegreen-resource
+  #       run:
+  #         path: sh
+  #         args:
+  #         - -exec
+  #         - |
+  #           ls -la
+  #           echo 'something should happen here'
