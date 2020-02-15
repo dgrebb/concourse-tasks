@@ -2,11 +2,16 @@
 
 # RESOURCES ------------------------------ #
 resources:
-  - name: source-code
+  # - name: source-code
+  #   type: git
+  #   source:
+  #     uri: https://github.com/dgrebb/Snippets
+  #     branch: master
+  - name: source
     type: git
     source:
-      uri: https://github.com/dgrebb/Snippets
       branch: master
+      uri: https://github.com/dgrebb/concourse-tasks.git
   - name: bluegreen
     type: keyval
 
@@ -21,11 +26,12 @@ resource_types:
 jobs:
   - name: make bluegreen
     plan:
+    - get: source
     - task: make bluegreen
-      file: ./tasks/bluegreen.yml
+      file: source/tasks/bluegreen-task.yml
     - put: bluegreen
       params:
-        file: .resources/bluegreen.properties
+        file: ./resources/bluegreen.properties
 
   - name: read bluegreen
     plan:
