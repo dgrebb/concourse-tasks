@@ -11,5 +11,4 @@ run:
   args:
   - -exec
   - |
-    bluegreen="true"
-    ls -la bluegreen
+    echo "deploying" > state
