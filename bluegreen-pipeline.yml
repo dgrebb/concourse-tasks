@@ -31,7 +31,7 @@ jobs:
       file: source/tasks/bluegreen-task.yml
     - put: bluegreen
       params:
-        file: bluegreen
+        file: bluegreen/state.properties
 
   - name: read bluegreen
     plan:
