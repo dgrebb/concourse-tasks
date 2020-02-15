@@ -1,0 +1,51 @@
+---
+
+resources:
+- name: source-code
+  type: git
+  source:
+    uri: https://github.com/dgrebb/Snippets
+    branch: master
+# - name: bluegreen
+#   type: keyval
+
+resource_types:
+- name: keyval
+  type: keyval
+
+jobs:
+- name: echo file 
+  plan:
+  - get: source-code
+  - task: eco
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: busybox
+      inputs:
+      - name: source-code
+      outputs:
+      - name: resources
+      run:
+        path: sh
+        args:
+        - -exec
+        - |
+          echo "blue" > ./resources/bluegreen
+  - task: readfile
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: busybox
+      inputs:
+      - name: resources
+      run:
+        path: sh
+        args:
+        - -exec
+        - |
+          cat resources/bluegreen
