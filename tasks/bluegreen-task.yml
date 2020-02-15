@@ -12,4 +12,4 @@ run:
   - -exec
   - |
     bluegreen="true"
-    ls -la
+    ls -la bluegreen
