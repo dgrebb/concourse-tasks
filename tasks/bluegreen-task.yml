@@ -4,8 +4,6 @@ image_resource:
     type: docker-image
     source:
       repository: busybox
-inputs:
-- name: bluegreen
 outputs:
 - name: bluegreen
 run:
