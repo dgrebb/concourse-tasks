@@ -47,8 +47,16 @@ jobs:
           type: docker-image
           source:
             repository: busybox
+        inputs:
+        - name: source
         run:
-          path: ./source/tasks/keyvals-task.sh
+          path: sh
+          args:
+          - -exec
+          - |
+            ls -la
+            ls -la source
+            
     - task: print bluegreen vals
       config:
         platform: linux
