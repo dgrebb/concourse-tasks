@@ -57,7 +57,7 @@ jobs:
           - |
             ls -la
             ls -la source/tasks
-            sh source/tasks/keyvals-task.yml
+            sh source/tasks/keyvals-task.sh
 
     - task: print bluegreen vals
       config:
@@ -74,8 +74,6 @@ jobs:
           - -exec
           - |
             cat bluegreen/keyval.properties
-            echo "set env vars"
-            sh bluegreen/keyval.properties
             echo "prod -> ${PROD_ENVIRONMENT}"
 
   # - name: echo file 

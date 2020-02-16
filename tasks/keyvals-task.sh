@@ -1,6 +1,8 @@
-#!/bin/sh
-
-props="${ROOT_FOLDER}/bluegreen/keyval.properties"
+#!/bin/bash
+echo 'what the fuck'
+ls -la
+echo "${ROOT_FOLDER}"
+props="bluegreen/keyval.properties"
 if [ -f "$props" ]
 then
   echo "Reading passed key values"
@@ -14,3 +16,4 @@ then
     fi
   done < "$props"
 fi
+echo "hi ${hi}"
