@@ -1,8 +1,5 @@
 #!/bin/sh
 
-echo 'what the fuck'
-ls -la
-echo "${ROOT_FOLDER}"
 props="bluegreen/keyval.properties"
 if [ -f "$props" ]
 then
@@ -17,4 +14,3 @@ then
     fi
   done < "$props"
 fi
-echo "hi ${hi}"
