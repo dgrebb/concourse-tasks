@@ -12,5 +12,5 @@ run:
   - -exec
   - |
     FILE="bluegreen/keyval.properties"
-    echo 'PROD_ENVIRONMENT="green"' > $FILE
-    echo 'SOMOTHER="value is stored here"' > $FILE
+    echo 'PROD_ENVIRONMENT="green"' >> $FILE
+    echo 'SOMOTHER="value is stored here"' >> $FILE
