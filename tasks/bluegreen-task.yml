@@ -11,4 +11,4 @@ run:
   args:
   - -exec
   - |
-    echo "DEPLOYING=true" > bluegreen/keyval.properties
+    echo "green" > bluegreen/keyval.properties

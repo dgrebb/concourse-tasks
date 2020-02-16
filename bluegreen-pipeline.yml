@@ -55,6 +55,8 @@ jobs:
           - |
             ls -la bluegreen
             cat bluegreen/keyval.properties
+            PROD=$(cat bluegreen/keyval.properties)
+            echo "print deploy var: ${PROD}"
 
   # - name: echo file 
   #   plan:
