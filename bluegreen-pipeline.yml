@@ -53,7 +53,7 @@ jobs:
           args:
           - -exec
           - |
-            sh bluegreen/keyval.properties
+            cat bluegreen/keyval.properties
             echo "prod -> ${PROD_ENVIRONMENT}"
 
   # - name: echo file 
