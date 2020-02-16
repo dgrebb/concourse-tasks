@@ -58,6 +58,7 @@ jobs:
           - |
             source source/tasks/keyvals.sh
             echo "prod -> ${PROD_ENVIRONMENT}"
+            echo "also -> ${SOMOTHER}"
 
   # - name: echo file 
   #   plan:
