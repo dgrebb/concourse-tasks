@@ -55,10 +55,9 @@ jobs:
           args:
           - -exc
           - |
-            ls -la
-            ls -la source/tasks
             chmod +x source/tasks/keyvals-task.sh
             source/tasks/keyvals-task.sh
+            echo "booyaa -> ${PROD_ENVIRONMENT}"
 
     - task: print bluegreen vals
       config:

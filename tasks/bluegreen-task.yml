@@ -11,4 +11,4 @@ run:
   args:
   - -exec
   - |
-    echo "PROD_ENVIRONMENT=green" > bluegreen/keyval.properties
+    echo 'PROD_ENVIRONMENT="green"' > bluegreen/keyval.properties
