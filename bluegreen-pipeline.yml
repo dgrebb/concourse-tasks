@@ -49,14 +49,16 @@ jobs:
             repository: busybox
         inputs:
         - name: source
+        - name: bluegreen
         run:
           path: sh
           args:
           - -exec
           - |
             ls -la
-            ls -la source
-            
+            ls -la source/tasks
+            sh source/tasks/keyvals-task.yml
+
     - task: print bluegreen vals
       config:
         platform: linux

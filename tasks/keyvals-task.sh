@@ -1,6 +1,6 @@
 #!/bin/sh
 
-props="${ROOT_FOLDER}/keyval/keyval.properties"
+props="${ROOT_FOLDER}/bluegreen/keyval.properties"
 if [ -f "$props" ]
 then
   echo "Reading passed key values"
