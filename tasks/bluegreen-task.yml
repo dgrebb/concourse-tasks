@@ -11,5 +11,4 @@ run:
   args:
   - -exec
   - |
-    echo "deploying" > bluegreen/state.properties
-    ls -la bluegreen
+    somkey="someval"

@@ -31,32 +31,30 @@ jobs:
       file: source/tasks/bluegreen-task.yml
     - put: bluegreen
       params:
-        file: bluegreen/state.properties
+        file: bluegreen/keyval.properties
 
   - name: read bluegreen
     plan:
-    - in_parallel:
-      - get: bluegreen
-        passed:
-        - make bluegreen
-      - task: print bluegreen vals
-        config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source:
-              repository: busybox
-          inputs:
-          - name: bluegreen
-          outputs:
-          - name: bluegreen
-          run:
-            path: sh
-            args:
-            - -exec
-            - |
-              ls
-              cat ./resources/bluegreen.properties
+    - get: bluegreen
+      passed:
+      - make bluegreen
+      trigger: true
+    - task: print bluegreen vals
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: busybox
+        inputs:
+        - name: bluegreen
+        run:
+          path: sh
+          args:
+          - -exec
+          - |
+            ls -la bluegreen
+            cat bluegreen/keyval.properties
 
   # - name: echo file 
   #   plan:
