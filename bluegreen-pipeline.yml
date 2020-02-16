@@ -33,14 +33,15 @@ jobs:
       params:
         file: bluegreen/keyval.properties
 
-  - name: read bluegreen
+  - name: read bluegreen from pipeline storage
     plan:
     - get: bluegreen
     - get: source
       passed:
       - make bluegreen
       trigger: true
-    - task: convert keyvals
+
+    - task: print bluegreen vals
       config:
         platform: linux
         image_resource:
@@ -55,25 +56,7 @@ jobs:
           args:
           - -exc
           - |
-            chmod +x source/tasks/keyvals-task.sh
-            source/tasks/keyvals-task.sh
-            echo "booyaa -> ${PROD_ENVIRONMENT}"
-
-    - task: print bluegreen vals
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: busybox
-        inputs:
-        - name: bluegreen
-        run:
-          path: sh
-          args:
-          - -exc
-          - |
-            cat bluegreen/keyval.properties
+            source source/tasks/keyvals.sh
             echo "prod -> ${PROD_ENVIRONMENT}"
 
   # - name: echo file 
