@@ -53,10 +53,8 @@ jobs:
           args:
           - -exec
           - |
-            ls -la bluegreen
-            cat bluegreen/keyval.properties
-            PROD=$(cat bluegreen/keyval.properties)
-            echo "print deploy var: ${PROD}"
+            sh bluegreen/keyval.properties
+            echo "prod -> ${PROD_ENVIRONMENT}"
 
   # - name: echo file 
   #   plan:
