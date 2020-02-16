@@ -53,11 +53,12 @@ jobs:
         run:
           path: sh
           args:
-          - -exec
+          - -exc
           - |
             ls -la
             ls -la source/tasks
-            sh source/tasks/keyvals-task.sh
+            chmod +x source/tasks/keyvals-task.sh
+            source/tasks/keyvals-task.sh
 
     - task: print bluegreen vals
       config:
@@ -71,7 +72,7 @@ jobs:
         run:
           path: sh
           args:
-          - -exec
+          - -exc
           - |
             cat bluegreen/keyval.properties
             echo "prod -> ${PROD_ENVIRONMENT}"

@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+
 echo 'what the fuck'
 ls -la
 echo "${ROOT_FOLDER}"
