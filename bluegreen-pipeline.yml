@@ -33,7 +33,7 @@ jobs:
       params:
         file: bluegreen/keyval.properties
 
-  - name: read bluegreen from pipeline storage
+  - name: read bluegreen
     plan:
     - get: bluegreen
     - get: source
